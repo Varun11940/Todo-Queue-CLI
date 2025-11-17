@@ -173,6 +173,48 @@ $ todo list
 $ todo search "keyword"
 ```
 
+## 🚦 Task Prioritization
+
+**Easily organize your tasks by urgency!**  
+You can now assign a priority level to each task: `high`, `medium`, or `low`. This helps you focus on what matters most.
+
+### How to Use
+
+#### Add a Task with Priority
+```bash
+python -m todo add "Finish urgent report --priority=high"
+python -m todo add "Read documentation --priority=low"
+```
+
+#### Change Priority of an Existing Task
+By number:
+```bash
+python -m todo prio 2 high
+```
+By title:
+```bash
+python -m todo prio "Read documentation" medium
+```
+
+#### List Tasks with Priority
+```bash
+python -m todo list
+```
+- High priority tasks are shown first, with a red color and `!!!` symbol.
+- Medium priority tasks use yellow and `~~`.
+- Low priority tasks use green and `--`.
+
+### Example Output
+```
+  ✓  !!!  Finish urgent report (HIGH)
+  x   --  Read documentation (LOW)
+```
+
+### Why Use Prioritization?
+- **Stay focused:** See urgent tasks at the top.
+- **Visual cues:** Colors and symbols make priorities clear.
+- **Flexible:** Change priorities anytime.
+
 ## License
 
 MIT © [François Chalifour](http://francoischalifour.com)
