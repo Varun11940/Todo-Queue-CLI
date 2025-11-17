@@ -27,25 +27,39 @@ class ListCommand(Command):
         )
 
     def print_todos(self, todos=[]):
-        """Print all the todos"""
-        checked = lambda t: t['done']
-        for todo in sorted(todos, key=checked):
+        """
+        Print all the todos with priority formatting
+
+        Now sorts by priority (high first) and includes priority display
+        """
+        # Sort by priority first, then by completion status
+        sorted_todos = self.sort_todos_by_priority(todos)
+
+        for index, todo in enumerate(sorted_todos, start=1):
             is_done = todo['done']
             status = ' ✓ ' if is_done else ' x '
             color = Fore.GREEN if is_done else Style.RESET_ALL
             background = Back.GREEN if is_done else Back.WHITE
+
+            # Get priority info
+            priority = todo.get('priority', self.DEFAULT_PRIORITY)
+            priority_color = self.get_priority_color(priority)
+            priority_symbol = self.get_priority_symbol(priority)
+
             safe_print(
-                ' {black}{background}{status}{reset}  {color}{title}{reset}'
+                ' {black}{background}{status}{reset}  {priority_symbol}  {color}{title}{reset} {priority_color}({priority_upper}){reset}'
                 .format(
                     status=status,
                     title=todo['title'],
                     color=color,
                     black=Fore.BLACK,
                     background=background,
+                    priority_symbol=priority_symbol,
+                    priority_color=priority_color,
+                    priority_upper=priority.upper(),
                     reset=Style.RESET_ALL,
                 )
             )
-
 
     def print_list(self, todos=[]):
         """Prints the entire todo list with information"""
@@ -62,7 +76,7 @@ class ListCommand(Command):
             self.print_todos(todos)
 
             no_items = len(todos)
-            no_checked = len([t for t in todos if t['done'] ])
+            no_checked = len([t for t in todos if t['done']])
             print(
                 '{info}{no_items:>2} items: {no_checked} completed, {no_unchecked} left{reset}'
                 .format(
@@ -73,7 +87,6 @@ class ListCommand(Command):
                     reset=Style.RESET_ALL,
                 )
             )
-
 
     def run(self):
         try:
@@ -92,11 +105,15 @@ class ListCommand(Command):
             )
             sys.exit(1)
 
-        try: name = data['name']
-        except: name = self.UNTITLED_NAME
+        try:
+            name = data['name']
+        except:
+            name = self.UNTITLED_NAME
 
-        try: todos = data['todos']
-        except: todos = []
+        try:
+            todos = data['todos']
+        except:
+            todos = []
 
         self.print_project_name(name)
         self.print_list(todos)

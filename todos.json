@@ -1,33 +1,15 @@
 {
-    "name": "todo",
+    "name": "test",
     "todos": [
         {
-            "done": true,
-            "title": "List"
-        },
-        {
-            "done": true,
-            "title": "Remove"
-        },
-        {
-            "done": true,
-            "title": "Toggle"
-        },
-        {
-            "done": true,
-            "title": "Menu interface"
-        },
-        {
-            "done": true,
-            "title": "Make executable"
+            "done": false,
+            "priority": "high",
+            "title": "Finish urgent report"
         },
         {
             "done": false,
-            "title": "Add parser"
-        },
-        {
-            "done": false,
-            "title": "Flag management"
+            "priority": "low",
+            "title": "Read documentation"
         }
     ]
 }

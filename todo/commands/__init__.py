@@ -10,6 +10,7 @@ from todo.commands.uncheck import Uncheck
 from todo.commands.search import Search
 from todo.commands.delete import Delete
 from todo.commands.rename import Rename
+from todo.commands.prio import Prio
 
 
 commands_dict = {
@@ -27,4 +28,5 @@ commands_dict = {
     'delete': Delete.run,
     'del': Delete.run,
     'rename': Rename.run,
+    'prio': Prio.run,
 }
